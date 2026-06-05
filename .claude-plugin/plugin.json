@@ -1,0 +1,21 @@
+{
+  "name": "spring-skills",
+  "version": "1.0.0",
+  "description": "Spring Boot ecosystem skills",
+  "author": {
+    "name": "PartMeAI",
+    "email": "partmeai@gmail.com"
+  },
+  "homepage": "https://github.com/full-statck-skills/spring-skills",
+  "repository": "https://github.com/full-statck-skills/spring-skills",
+  "source": "./",
+  "skills": [
+    "./skills/spring-ai-alibaba",
+    "./skills/spring-ai",
+    "./skills/spring-boot",
+    "./skills/spring-cloud-alibaba",
+    "./skills/spring-cloud",
+    "./skills/spring-data-jpa",
+    "./skills/spring-security"
+  ]
+}
