@@ -6,8 +6,8 @@
     "name": "PartMeAI",
     "email": "partmeai@gmail.com"
   },
-  "homepage": "https://github.com/full-statck-skills/spring-skills",
-  "repository": "https://github.com/full-statck-skills/spring-skills",
+  "homepage": "https://github.com/full-stack-skills/spring-skills",
+  "repository": "https://github.com/full-stack-skills/spring-skills",
   "source": "./",
   "skills": [
     "./skills/spring-ai-alibaba",
