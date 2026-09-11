@@ -1,7 +1,7 @@
 ---
 name: spring-data-jpa
 description: Provides comprehensive guidance for Spring Data JPA including repositories, entity management, query methods, and database operations. Use when the user asks about Spring Data JPA, needs to work with JPA repositories, implement data access layers, or configure JPA in Spring.
-license: Complete terms in LICENSE.txt
+license: Apache-2.0
 ---
 
 ## When to use this skill

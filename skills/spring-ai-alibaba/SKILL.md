@@ -1,5 +1,6 @@
 ---
 name: spring-ai-alibaba
+license: Apache-2.0
 description: Provides comprehensive guidance for Spring AI Alibaba including Alibaba Cloud AI services integration, model APIs, and AI application development. Use when the user asks about Spring AI Alibaba, needs to use Alibaba Cloud AI services, or integrate AI capabilities in Spring applications.
 ---
 

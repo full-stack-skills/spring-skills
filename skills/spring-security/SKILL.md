@@ -1,7 +1,7 @@
 ---
 name: spring-security
 description: Provides comprehensive guidance for Spring Security including authentication, authorization, OAuth2, JWT, and security best practices. Use when the user asks about Spring Security, needs to implement security in Spring applications, configure authentication, or work with security features.
-license: Complete terms in LICENSE.txt
+license: Apache-2.0
 ---
 
 ## When to use this skill
