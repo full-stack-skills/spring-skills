@@ -3,7 +3,6 @@ name: spring-ai
 license: Apache-2.0
 description: Provides comprehensive guidance for Spring AI including AI model integration, prompt templates, vector stores, and AI applications. Use when the user asks about Spring AI, needs to integrate AI models, implement RAG applications, or work with AI services in Spring.
 ---
-
 # Spring AI 开发指南
 
 ## 概述
@@ -52,15 +51,15 @@ spring:
 @Service
 public class ChatService {
     private final ChatClient chatClient;
-    
+
     public ChatService(ChatClient chatClient) {
         this.chatClient = chatClient;
     }
-    
+
     public String chat(String message) {
         return chatClient.call(message);
     }
-    
+
     public String chatWithPrompt(String userMessage) {
         Prompt prompt = new Prompt(new UserMessage(userMessage));
         ChatResponse response = chatClient.call(prompt);
@@ -75,11 +74,11 @@ public class ChatService {
 @Service
 public class ChatService {
     private final StreamingChatClient streamingChatClient;
-    
+
     public ChatService(StreamingChatClient streamingChatClient) {
         this.streamingChatClient = streamingChatClient;
     }
-    
+
     public Flux<String> streamChat(String message) {
         return streamingChatClient.stream(message)
             .map(response -> response.getResult().getOutput().getContent());
@@ -95,13 +94,13 @@ public class ChatService {
 @Service
 public class PromptService {
     private final PromptTemplate promptTemplate;
-    
+
     public PromptService() {
         this.promptTemplate = new PromptTemplate(
             "请用{style}风格回答以下问题：{question}"
         );
     }
-    
+
     public String generatePrompt(String style, String question) {
         Map<String, Object> variables = Map.of(
             "style", style,
@@ -119,14 +118,14 @@ public class PromptService {
 public class ChatService {
     private final ChatClient chatClient;
     private final PromptTemplate promptTemplate;
-    
+
     public ChatService(ChatClient chatClient) {
         this.chatClient = chatClient;
         this.promptTemplate = new PromptTemplate(
             "请用{style}风格回答以下问题：{question}"
         );
     }
-    
+
     public String chatWithStyle(String style, String question) {
         Prompt prompt = promptTemplate.create(Map.of(
             "style", style,
@@ -157,18 +156,18 @@ spring:
 @Service
 public class EmbeddingService {
     private final EmbeddingClient embeddingClient;
-    
+
     public EmbeddingService(EmbeddingClient embeddingClient) {
         this.embeddingClient = embeddingClient;
     }
-    
+
     public List<Double> embed(String text) {
         EmbeddingResponse response = embeddingClient.embedForResponse(
             List.of(text)
         );
         return response.getResult().getOutput();
     }
-    
+
     public List<List<Double>> embedBatch(List<String> texts) {
         EmbeddingResponse response = embeddingClient.embedForResponse(texts);
         return response.getResult().getOutput();
@@ -196,7 +195,7 @@ spring:
 public class VectorStoreService {
     private final VectorStore vectorStore;
     private final EmbeddingClient embeddingClient;
-    
+
     public VectorStoreService(
         VectorStore vectorStore,
         EmbeddingClient embeddingClient
@@ -204,13 +203,13 @@ public class VectorStoreService {
         this.vectorStore = vectorStore;
         this.embeddingClient = embeddingClient;
     }
-    
+
     public void addDocument(String id, String content) {
         List<Double> embedding = embeddingClient.embed(content);
         Document document = new Document(id, content, Map.of());
         vectorStore.add(List.of(document));
     }
-    
+
     public List<Document> searchSimilar(String query, int topK) {
         List<Double> queryEmbedding = embeddingClient.embed(query);
         return vectorStore.similaritySearch(
@@ -260,7 +259,7 @@ public class FunctionCallingConfig {
 public class ChatService {
     private final ChatClient chatClient;
     private final FunctionCallbackRegistry functionCallbackRegistry;
-    
+
     public ChatService(
         ChatClient chatClient,
         FunctionCallbackRegistry functionCallbackRegistry
@@ -268,7 +267,7 @@ public class ChatService {
         this.chatClient = chatClient;
         this.functionCallbackRegistry = functionCallbackRegistry;
     }
-    
+
     public String chatWithFunction(String message) {
         Prompt prompt = new Prompt(
             new UserMessage(message),
@@ -304,7 +303,7 @@ spring:
 public class MultiModelService {
     private final ChatClient openAiChatClient;
     private final ChatClient anthropicChatClient;
-    
+
     public MultiModelService(
         @Qualifier("openAiChatClient") ChatClient openAiChatClient,
         @Qualifier("anthropicChatClient") ChatClient anthropicChatClient
@@ -312,11 +311,11 @@ public class MultiModelService {
         this.openAiChatClient = openAiChatClient;
         this.anthropicChatClient = anthropicChatClient;
     }
-    
+
     public String chatWithOpenAI(String message) {
         return openAiChatClient.call(message);
     }
-    
+
     public String chatWithAnthropic(String message) {
         return anthropicChatClient.call(message);
     }
@@ -337,7 +336,7 @@ public class MultiModelService {
 @Service
 public class ChatService {
     private final ChatClient chatClient;
-    
+
     public String chat(String message) {
         try {
             return chatClient.call(message);
@@ -398,42 +397,3 @@ public class ChatService {
 - "Spring AI 中如何实现 Function Calling？"
 - "如何配置 Spring AI 支持多个模型？"
 
-## 能力边界
-
-### ✅ 适用场景
-- 当你需要使用此技能对应的技术栈时
-- 当项目需要遵循最佳实践时
-- 当需要快速上手或深入理解核心概念时
-
-### ⚠️ 需要注意
-- 复杂业务逻辑需要结合具体场景调整
-- 性能优化需要根据实际数据量评估
-
-### ❌ 不适用场景
-- 不相关的技术栈或框架
-- 需要完全自定义的特殊场景
-
-## 常见陷阱 (Gotchas)
-
-1. **版本兼容性**：注意框架版本与依赖库的兼容性，不同版本 API 可能有差异
-2. **配置文件格式**：配置文件格式错误是最常见的问题，建议使用编辑器的语法检查
-3. **环境变量**：确保所有必要的环境变量已正确设置，敏感信息不要硬编码
-4. **依赖冲突**：多版本共存时注意依赖冲突，使用 lock 文件锁定版本
-5. **性能陷阱**：大数据量场景下注意性能优化，避免 N+1 查询等常见问题
-
-## 使用流程
-
-### Step 1: 环境准备
-确保开发环境已安装必要的依赖和工具。
-
-### Step 2: 配置初始化
-根据项目需求进行基础配置。
-
-### Step 3: 核心功能使用
-按照示例代码实现核心功能。
-
-### Step 4: 测试验证
-运行测试确保功能正常。
-
-### Step 5: 部署上线
-完成开发后进行部署和监控。
