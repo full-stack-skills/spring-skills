@@ -3,7 +3,6 @@ name: spring-boot
 license: Apache-2.0
 description: Provides comprehensive guidance for Spring Boot development including project creation, auto-configuration, dependency injection, web development, data access, security, testing, and deployment. Use when the user asks about Spring Boot, needs to create Spring Boot applications, configure Spring Boot, or implement Spring Boot features.
 ---
-
 # Spring Boot 开发指南
 
 ## 概述
@@ -100,11 +99,11 @@ public class UserService {
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     public User findById(Long id) {
         return userRepository.findById(id)
             .orElseThrow(() -> new UserNotFoundException(id));
@@ -131,31 +130,31 @@ public interface UserRepository extends JpaRepository<User, Long> {
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
-    
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    
+
     @GetMapping
     public List<User> getAllUsers() {
         return userService.findAll();
     }
-    
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
-    
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.save(user);
     }
-    
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.update(id, user);
     }
-    
+
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.delete(id);
@@ -190,13 +189,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
     private String name;
-    
+
     @Column(unique = true, nullable = false)
     private String email;
-    
+
     // Getters and Setters
 }
 ```
@@ -208,7 +207,7 @@ public class User {
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     List<User> findByNameContaining(String name);
-    
+
     @Query("SELECT u FROM User u WHERE u.email = :email")
     Optional<User> findByEmailCustom(@Param("email") String email);
 }
@@ -221,23 +220,23 @@ public interface UserRepository extends JpaRepository<User, Long> {
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
-    
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     public User save(User user) {
         return userRepository.save(user);
     }
-    
+
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
-    
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
-    
+
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
@@ -255,7 +254,7 @@ public class AppProperties {
     private String name;
     private String version;
     private Database database;
-    
+
     @Data
     public static class Database {
         private String host;
@@ -316,7 +315,7 @@ public class SecurityConfig {
 class UserServiceTest {
     @Autowired
     private UserService userService;
-    
+
     @Test
     void testFindById() {
         User user = userService.findById(1L)
@@ -334,7 +333,7 @@ class UserServiceTest {
 class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    
+
     @Test
     void testGetUser() throws Exception {
         mockMvc.perform(get("/api/users/1"))
@@ -413,42 +412,3 @@ com.example.myapp/
 - "如何在 Spring Boot 中实现全局异常处理？"
 - "Spring Boot 中如何使用 Spring Security？"
 
-## 能力边界
-
-### ✅ 适用场景
-- 当你需要使用此技能对应的技术栈时
-- 当项目需要遵循最佳实践时
-- 当需要快速上手或深入理解核心概念时
-
-### ⚠️ 需要注意
-- 复杂业务逻辑需要结合具体场景调整
-- 性能优化需要根据实际数据量评估
-
-### ❌ 不适用场景
-- 不相关的技术栈或框架
-- 需要完全自定义的特殊场景
-
-## 常见陷阱 (Gotchas)
-
-1. **版本兼容性**：注意框架版本与依赖库的兼容性，不同版本 API 可能有差异
-2. **配置文件格式**：配置文件格式错误是最常见的问题，建议使用编辑器的语法检查
-3. **环境变量**：确保所有必要的环境变量已正确设置，敏感信息不要硬编码
-4. **依赖冲突**：多版本共存时注意依赖冲突，使用 lock 文件锁定版本
-5. **性能陷阱**：大数据量场景下注意性能优化，避免 N+1 查询等常见问题
-
-## 使用流程
-
-### Step 1: 环境准备
-确保开发环境已安装必要的依赖和工具。
-
-### Step 2: 配置初始化
-根据项目需求进行基础配置。
-
-### Step 3: 核心功能使用
-按照示例代码实现核心功能。
-
-### Step 4: 测试验证
-运行测试确保功能正常。
-
-### Step 5: 部署上线
-完成开发后进行部署和监控。

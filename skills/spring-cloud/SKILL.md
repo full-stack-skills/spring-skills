@@ -3,7 +3,6 @@ name: spring-cloud
 license: Apache-2.0
 description: Provides comprehensive guidance for Spring Cloud microservices including service discovery, configuration management, load balancing, circuit breakers, API gateways, and distributed tracing. Use when the user asks about Spring Cloud, needs to build microservices, implement service discovery, or work with Spring Cloud components.
 ---
-
 # Spring Cloud 微服务开发指南
 
 ## 概述
@@ -196,11 +195,11 @@ public class WebClientConfig {
 @Service
 public class OrderService {
     private final RestTemplate restTemplate;
-    
+
     public OrderService(@LoadBalanced RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-    
+
     public User getUser(Long userId) {
         return restTemplate.getForObject(
             "http://user-service/api/users/{id}",
@@ -242,7 +241,7 @@ resilience4j:
 public class OrderService {
     private final CircuitBreaker circuitBreaker;
     private final RestTemplate restTemplate;
-    
+
     public OrderService(
         CircuitBreakerRegistry circuitBreakerRegistry,
         RestTemplate restTemplate
@@ -250,7 +249,7 @@ public class OrderService {
         this.circuitBreaker = circuitBreakerRegistry.circuitBreaker("userService");
         this.restTemplate = restTemplate;
     }
-    
+
     public User getUser(Long userId) {
         return circuitBreaker.executeSupplier(() ->
             restTemplate.getForObject(
@@ -293,7 +292,7 @@ public class OrderServiceApplication {
 public interface UserServiceClient {
     @GetMapping("/api/users/{id}")
     User getUserById(@PathVariable Long id);
-    
+
     @PostMapping("/api/users")
     User createUser(@RequestBody User user);
 }
@@ -305,11 +304,11 @@ public interface UserServiceClient {
 @Service
 public class OrderService {
     private final UserServiceClient userServiceClient;
-    
+
     public OrderService(UserServiceClient userServiceClient) {
         this.userServiceClient = userServiceClient;
     }
-    
+
     public Order createOrder(Long userId, Order order) {
         User user = userServiceClient.getUserById(userId);
         // 创建订单逻辑
@@ -370,7 +369,7 @@ public interface UserServiceClient {
 @Service
 public class OrderService {
     private final RabbitTemplate rabbitTemplate;
-    
+
     public void publishOrderEvent(Order order) {
         rabbitTemplate.convertAndSend("order.exchange", "order.created", order);
     }
@@ -439,42 +438,3 @@ public class OrderService {
 - "Spring Cloud 中如何实现服务熔断？"
 - "如何配置 Spring Cloud Config 配置中心？"
 
-## 能力边界
-
-### ✅ 适用场景
-- 当你需要使用此技能对应的技术栈时
-- 当项目需要遵循最佳实践时
-- 当需要快速上手或深入理解核心概念时
-
-### ⚠️ 需要注意
-- 复杂业务逻辑需要结合具体场景调整
-- 性能优化需要根据实际数据量评估
-
-### ❌ 不适用场景
-- 不相关的技术栈或框架
-- 需要完全自定义的特殊场景
-
-## 常见陷阱 (Gotchas)
-
-1. **版本兼容性**：注意框架版本与依赖库的兼容性，不同版本 API 可能有差异
-2. **配置文件格式**：配置文件格式错误是最常见的问题，建议使用编辑器的语法检查
-3. **环境变量**：确保所有必要的环境变量已正确设置，敏感信息不要硬编码
-4. **依赖冲突**：多版本共存时注意依赖冲突，使用 lock 文件锁定版本
-5. **性能陷阱**：大数据量场景下注意性能优化，避免 N+1 查询等常见问题
-
-## 使用流程
-
-### Step 1: 环境准备
-确保开发环境已安装必要的依赖和工具。
-
-### Step 2: 配置初始化
-根据项目需求进行基础配置。
-
-### Step 3: 核心功能使用
-按照示例代码实现核心功能。
-
-### Step 4: 测试验证
-运行测试确保功能正常。
-
-### Step 5: 部署上线
-完成开发后进行部署和监控。
