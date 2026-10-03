@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Ai"
+  short_description: "Spring AI including AI model integration, prompt templates…"
+  default_prompt: "Use $spring-ai to help with my current task: Provides comprehensive guidance for Spring AI including AI model integration, prompt templates, vector stores, and AI applications."

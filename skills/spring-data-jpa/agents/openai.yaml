@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Data Jpa"
+  short_description: "Spring Data JPA including repositories, entity management…"
+  default_prompt: "Use $spring-data-jpa to help with my current task: Provides comprehensive guidance for Spring Data JPA including repositories, entity management, query methods, and database operations."

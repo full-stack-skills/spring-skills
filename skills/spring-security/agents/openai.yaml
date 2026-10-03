@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Security"
+  short_description: "Spring Security including authentication, authorization…"
+  default_prompt: "Use $spring-security to help with my current task: Provides comprehensive guidance for Spring Security including authentication, authorization, OAuth2, JWT, and security best practices."

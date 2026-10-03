@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Boot"
+  short_description: "Spring Boot development including project creation…"
+  default_prompt: "Use $spring-boot to help with my current task: Provides comprehensive guidance for Spring Boot development including project creation, auto-configuration, dependency injection, web development, data access, security, testing…"

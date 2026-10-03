@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Ai Alibaba"
+  short_description: "Spring AI Alibaba including Alibaba Cloud AI services…"
+  default_prompt: "Use $spring-ai-alibaba to help with my current task: Provides comprehensive guidance for Spring AI Alibaba including Alibaba Cloud AI services integration, model APIs, and AI application development."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Cloud Alibaba"
+  short_description: "Spring Cloud Alibaba including Nacos, Sentinel, RocketMQ, and…"
+  default_prompt: "Use $spring-cloud-alibaba to help with my current task: Provides comprehensive guidance for Spring Cloud Alibaba including Nacos, Sentinel, RocketMQ, and Alibaba Cloud integration."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spring Cloud"
+  short_description: "Spring Cloud microservices including service discovery…"
+  default_prompt: "Use $spring-cloud to help with my current task: Provides comprehensive guidance for Spring Cloud microservices including service discovery, configuration management, load balancing, circuit breakers, API gateways, and…"
